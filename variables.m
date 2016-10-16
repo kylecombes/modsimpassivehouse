@@ -9,9 +9,9 @@ wall_height = 5/8 * house_height;
 roof_hypot = 3/8 * house_height * sqrt(2); % Assume 45 degree roof angle
 
 % solar intensity throughout day
-<<<<<<< HEAD
+
 [times, solar_intensity] = get_solar_intensity();
-=======
+
 [times, solar_intensity] = get_solar_intensity();
 initial_time = 0
 final_time = 1440*60 %seconds in 24 hours
@@ -24,6 +24,6 @@ Hw = 4; %height of wall (m)
 Aw = 34.4; %area of walls
 m = 4535.924; %mass in Kg
 Co = 26.85; %specific heat air outside
-Ci = 
-U1 =  m*%initial internal energy
->>>>>>> bee99bf1bf504632152f4f2e070d115544c7ec72
+Ci = 1.4; %specific heat air inside
+U1 = m*Ci*T1; %initial internal energy
+
