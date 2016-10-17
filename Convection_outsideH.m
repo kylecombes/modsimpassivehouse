@@ -1,4 +1,4 @@
 function res = Convection_outsideH
- Cwo = hw2*Aw*(T_Outside - Tc); %convection outside house
- res = Cwo;
+global hw2 Aw T_outside
+ res = hw2*Aw*(T_outside); %convection outside house
 end

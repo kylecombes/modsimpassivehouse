@@ -1,7 +1,6 @@
 function res = Convection_insideH(Tc)
-variables;
 
-    Cwi = hw*Aw*(T_Outside - Tc); %convection inside house
-    res = Cwi;
+    global hw Aw T_outside
+    res = hw*Aw*(T_outside - Tc); %convection inside house
     
 end
