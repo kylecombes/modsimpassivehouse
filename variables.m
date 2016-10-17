@@ -9,14 +9,10 @@ house_height = 4;   % Height of house (m)
 wall_height = 5/8 * house_height;
 roof_hypot = 3/8 * house_height * sqrt(2); % Assume 45 degree roof angle
 
-% Solar intensity throughout day
-global times solar_intensity
-[times, solar_intensity] = get_solar_intensity();
-
 % Simulation parameters
-global initial_time_index final_time_index
-initial_time_index = 1;
-final_time_index = length(times);
+global start_time end_time
+start_time = 0;
+end_time = 24;
 
 % Various formula variables
 global hw1 hw2 Lw Ww Hw Aw m Co Ci

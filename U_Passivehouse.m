@@ -1,9 +1,12 @@
 %function res = U_Passivehouse()
     variables;
     
-    dUdt = @(ti, Ui) calc_net_flow(ti, Ui, T_outside, solar_intensity);
-    [times, Y] = ode45(dUdt, [initial_time_index, final_time_index], U_int_init);
-        Temp = Y/Hc;
+    dUdt = @(ti, Ui) calc_net_flow(ti, Ui, T_outside);
+    [times, U] = ode45(dUdt, [start_time, end_time], U_int_init);
+    Temps = calc_temp_from_u(m, Ci, U);
     figure(1); clf;
-    plot(times, Temp)
-%end       
+    plot(times, Temps)
+    xlabel('Time of Day (Hours)');
+    ylabel('Internal Temperature (K)');
+    title('House Temperature Throughout the Day');
+%end

@@ -1,10 +1,11 @@
-function res = calc_net_flow(timeIndex, U_int, T_outside, solar_intensity)
+function res = calc_net_flow(time, U_int, T_outside)
     
     % Calculate flow through windows and sun tube
     solar_angle = 0; % TODO Implement this
     window_area = 6; % (m^2) TODO Change
+    solar_intensity = get_solar_intensity(time);
     
-    windows = flow_windows(window_area, T_outside, U_int, solar_intensity(timeIndex), solar_angle);
+    windows = flow_windows(window_area, T_outside, U_int, solar_intensity, solar_angle);
     
     global m Ci
     % Calculate flow through walls, door, etc.

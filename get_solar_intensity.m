@@ -1,8 +1,8 @@
-function [times, intensity] = get_solar_intensity()
-    
-   times = linspace(0,pi,50); % create vector of 100 values between 0 and pi
-   x = sin(times); % calculate a sine curve based on those x values
-   intensity = [x zeros(1,50)]; % fill in the second half of the sine curve with
-                                % zeros to simulate nighttime
-    
+function res = get_solar_intensity(time)
+    if (time < 6 || time > 18) % nighttime before 6am and after 6pm
+        res = 0;
+    else
+        time = time - 6; % shift so 6am corresponds to x=0 on the sin curve
+        res = sin(time*pi/12);
+    end
 end
