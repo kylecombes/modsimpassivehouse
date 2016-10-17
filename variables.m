@@ -15,19 +15,22 @@ start_time = 0;
 end_time = 24;
 
 % Various formula variables
-global hw1 hw2 Lw Ww Hw Aw m Co Ci
+global hw1 hw2 Lw Ww Hw Aw m_int m_walls Co Ci
 hw1 = 10; %heat transfer coefficient of walls and door inside
 hw2 = 100; %heat transfer coefficient of walls to outside air
 Lw = 6;  %length of wall (m)
 Ww = 2.6; %width of wall(m)
 Hw = 4; %height of wall (m)
 Aw = 34.4; %area of walls
-m = 4500; %mass in Kg
+m_int = 500; %mass of interior (Kg)
+m_walls = 4000; % mass of walls (kg)
 Co = 26.85; %specific heat air outside
 Ci = 1.4; %specific heat air inside
 
 % Initial values
-global T_int_init U_int_init
+global T_int_init U_int_init U_walls
 T_int_init = 20; % initial internal temperature (K)
-U_int_init = m * Ci * T_int_init; %initial internal energy
+U_int_init = m_int * Ci * T_int_init; %initial internal energy
+U_walls = m_walls * Cw * T_int_init; % set initial wall energy, assuming T
+                                    % is the same as the interior
 
