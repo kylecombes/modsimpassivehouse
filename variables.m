@@ -10,7 +10,11 @@ roof_hypot = 3/8 * house_height * sqrt(2); % Assume 45 degree roof angle
 
 % Simulation parameters
 start_time = 0;
-end_time = 24;
+end_time = 240;
+
+% Weather/environment variables
+max_solar_intensity = 1000; % (W/m^2)
+hours_of_daylight = 12; % hours of sunlight per day (hours)
 
 % Various formula variables
 % Heat transfer coefficients
