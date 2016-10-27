@@ -1,6 +1,6 @@
 % All the shared static final (i.e. unchanging) variables for
 % the passive house system and surroundings go here.
-
+roof_hypot;
 house_length = 6;   % Length of outside (m)
 house_width = 2.6;  % Width of house (m)
 house_height = 4;   % Height of house (m)
