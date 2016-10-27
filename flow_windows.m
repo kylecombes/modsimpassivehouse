@@ -1,4 +1,4 @@
-function res = flow_windows(area, T_out, U_int, solar_intensity, solar_angle)
+function res = flow_windows(area, T_out, T_int, solar_intensity, solar_angle)
 % FLOW_WINDOWS  Calculates the net flow of energy into the system (in W).
 
     % Import variables
@@ -11,11 +11,10 @@ function res = flow_windows(area, T_out, U_int, solar_intensity, solar_angle)
     %solar_intensity = calc_effective_intensity(solar_intensity, solar_angle);
     
     % Calculate influx
-    in = area * solar_intensity;
+    in = area * solar_intensity/4; % Divide by 3.9 right now since sun is only directly hitting one side at a time
     
     %% ----- Calculate flow out -----
     U_factor = 0.29; % W/m^2*K, source: Home Depot
-    T_int = calc_temp_from_u(m_int, C_air, U_int);
     out = (T_int - T_out) * area * U_factor;
     
     res = in - out;

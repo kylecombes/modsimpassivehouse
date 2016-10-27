@@ -1,6 +1,5 @@
 % All the shared static final (i.e. unchanging) variables for
 % the passive house system and surroundings go here.
-roof_hypot;
 house_length = 6;   % Length of outside (m)
 house_width = 2.6;  % Width of house (m)
 house_height = 4;   % Height of house (m)
@@ -34,12 +33,12 @@ Ww = 2.6; %width of wall(m)
 Hw = 4; %height of wall (m)
 Aw = 34.4; %area of walls
 % Masses
-m_int = 500; %mass of interior (Kg)
-m_walls = 4000; % mass of exterior house (kg)
+m_int = 10; % mass of air inside (Kg)
+m_walls_int = 700; % mass of interior walls (kg)
+m_walls_ext = 700;  % mass of exterior walls (kg)
 
 % Initial values
-T_int_init = 295; % initial internal temperature (K)
+global T_int_init
 U_int_init = m_int * C_air * T_int_init; %initial internal energy
-U_walls_init = m_walls * C_w * T_int_init; % set initial wall energy, assuming T
+U_walls_init = m_walls_int * C_w * T_int_init; % set initial wall energy, assuming T
                                     % is the same as the interior
-
