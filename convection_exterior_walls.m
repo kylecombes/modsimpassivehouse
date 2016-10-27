@@ -1,5 +1,11 @@
-function res = convection_exterior_walls(T_outside, U_walls)
+function res = convection_exterior_walls(T_outside,U)
 	variables; % import static variables
-    T_walls = calc_temp_from_u(m_walls, C_w, U_walls);
-    res = hw1*Aw*(T_outside - T_walls); %convection outside house
+    
+    %global  Aw m_walls Ri X1 K1 X2 K2 Row T_int Ci 
+    T_int = calc_temp_from_u(m_walls,Ci,U);
+    therm_resistivity = 1/((1/Ri)+(X1/K1)+(X2/K2)+(1/Row)); %thermal resistance coefficient walls
+    heat_transfer_thru_walls = Aw*therm_resistivity*(T_int-T_outside); %flow
+
+    flow = heat_transfer_thru_walls;
+    res = -flow; 
 end
