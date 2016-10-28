@@ -32,7 +32,8 @@ C_w = 1600; % wood (J/kg*K)
 Lw = 6;  %length of wall (m)
 Ww = 2.6; %width of wall(m)
 Hw = 4; %height of wall (m)
-Aw = 34.4; %area of walls
+Aw = 22.4; %area of walls
+Ar = 25.5; %area roof
 % Masses
 m_int = 500; %mass of interior (Kg)
 m_walls = 4000; % mass of exterior house (kg)
