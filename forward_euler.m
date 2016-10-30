@@ -1,5 +1,5 @@
-function [T, Y] = forward_euler(flowFunction, timeSpan, OutsideTemps, ...
-    solarIntensities, window_area, Y0)
+function [T, Y, TDs] = forward_euler(flowFunction, timeSpan, OutsideTemps, ...
+    solarIntensities, window_area, Y0, include_window_outflow)
 % FORWARD_EULER  Solve a system of ordinary differential equations
 %   (interpreted as stocks and flows) by the forward Euler method.
 %   [T, Y] = forward_euler(flowFunction, timeSpan, Y0) accepts a flow
@@ -18,10 +18,11 @@ function [T, Y] = forward_euler(flowFunction, timeSpan, OutsideTemps, ...
     % Initialize the return values.
     T = transpose(timeSpan);                 % make a column vector
     Y = [Y0; zeros(numTimes-1, numStocks)];  % works for multiple stocks!
+    TDs = zeros(numTimes-1, 1);
     % And now our old friend, the Euler loop ...
     
-    figure(2);
-    hold on
+    %figure(2);
+    %hold on
     
     for i = 2:numTimes
         dt = (T(i) - T(i-1));                  % time difference
@@ -31,14 +32,16 @@ function [T, Y] = forward_euler(flowFunction, timeSpan, OutsideTemps, ...
         % Evaluate the flow function at the previous stock values.
         % (We haven't seen this in the Cat Book, but it's not scary --
         % try "help feval".)
-        flows = feval(flowFunction, prevStocks, outsideTemp, solarIntensity, window_area, i);
+        [flows, temp_diff] = feval(flowFunction, prevStocks, outsideTemp, solarIntensity, ...
+            window_area, include_window_outflow);
         % Now update the stock matrix -- just as we've done before, but
         % allowing for multiple stocks. (Note that we expect the flows
         % to be returned as column vectors; again, this is to make it
         % easier to "swap in" MATLAB's solver functions later.)
-        fprintf('Flow to interior: %.3i W. Through walls: %.3i W. To exterior: %.3i W.\n', ...
-            flows(1), flows(2), flows(3));
+        %fprintf('Flow to interior: %.3i W. Through walls: %.3i W. To exterior: %.3i W.\n', ...
+         %   flows(1), flows(2), flows(3));
         flows = flows * 1800;
+        TDs(i) = temp_diff;
         Y(i, :) = prevStocks + (transpose(flows) .* dt);
     end
 end
