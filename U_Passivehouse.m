@@ -5,8 +5,9 @@
 
     % Half hours is the number of 30-minute periods that have
     % elapsed since the beginning of that day
+    global HalfHours Solar_direct Solar_diffuse Outside_temp
     [Months, Days, HalfHours, Solar_direct, Solar_diffuse, ...
-        Temp] = import_data(2015);
+        Outside_temp] = import_data(2015);
     
     for n = 1:double_data_times
         if (n < 2)
@@ -19,13 +20,13 @@
         HalfHours = doubleDataByInterpolation(HalfHours(1:endIndex));
         Solar_direct = doubleDataByInterpolation(Solar_direct(1:endIndex));
         Solar_diffuse = doubleDataByInterpolation(Solar_diffuse(1:endIndex));
-        Temp = doubleDataByInterpolation(Temp(1:endIndex));
+        Outside_temp = doubleDataByInterpolation(Outside_temp(1:endIndex));
     end
     
     % initial internal temperature (K)
     global T_int_init T_ext_wall_init
     T_int_init = 290;
-    T_ext_wall_init = Temp(1);
+    T_ext_wall_init = Outside_temp(1);
     % Load static values
     variables;
     
@@ -49,7 +50,7 @@
         A_windows = windowAreas(i);
         timeSpan = linspace(0, daysToRunFor*60*60*24, pointsToCalc);
         totalSolar = Solar_diffuse(1:pointsToCalc) + Solar_direct(1:pointsToCalc);
-        [Times, U, TDs] = forward_euler(@calc_net_flow, timeSpan, Temp, ...
+        [Times, U, TDs] = forward_euler(@calc_net_flow, timeSpan, Outside_temp, ...
             totalSolar, A_windows, U_init, out);
         U_int = U(:,1);
         U_walls_ext = U(:,2);
@@ -62,7 +63,7 @@
     end
     % Calculate temperatures and convert to F
     T_ext_wall = calc_temp_from_u(m_walls_ext, C_w, U_walls_ext)*(9/5)-459.67;
-    T_outside = Temp*(9/5)-459.67;
+    T_outside = Outside_temp*(9/5)-459.67;
     % Plot temperatures over time
     %figure(1);
     %times = (1:pointsToCalc)/48;
