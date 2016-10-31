@@ -1,4 +1,4 @@
-function [months, days, halfHours, dhi, dni, temp] = import_data(year)
+function [months, days, halfHours, dni, dhi, temp] = import_data(year)
     f = strcat('solar_data\1321407_42.25_-71.22_',num2str(year),'.csv');
     data = importdata(f);
     months = data.data(:,2);
