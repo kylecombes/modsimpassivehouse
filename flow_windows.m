@@ -1,28 +1,24 @@
-function res = flow_windows(index, exposed_area, total_area, temp_diff, solar_direct, solar_diffuse, include_outflow)
+function res = flow_windows(index, vars, solar_direct, solar_diffuse, exposed_area, temp_outside, temp_diff)
 % FLOW_WINDOWS  Calculates the net flow of energy into the system (in W).
 
-    % Import variables
-    variables;
+    
 
     %% ----- Calculate flow in -----
-    % Calculate effective (tangiential) window area
-    %area = area * sin(solar_angle);
-    % Account for reflection
-    %solar_intensity = calc_effective_intensity(solar_intensity, solar_angle);
-    
     % Calculate influx
-    %in_direct = calc_direct_window_irradiation(index, solar_direct, exposed_area/4);
-    in_diffuse = total_area * solar_diffuse;
-    in = in_diffuse;
+    in_effective_direct = calc_direct_window_irradiation(index, vars, solar_direct, exposed_area/4);
+    in_diffuse = vars.exterior_area * solar_diffuse;
+    in = in_diffuse + in_effective_direct;
     
+    target_temp = 294;
+    % Close tubes based temp diff
+    if (temp_outside > target_temp || temp_diff < 10)
+        in = in*0.1; % Assume closing shutter blocks 90% of heat
+    end
+
     %% ----- Calculate flow out -----
     U_factor = 0.46; % W/m^2*K, source: Home Depot
-    out = -temp_diff * total_area * U_factor;
+    out = -temp_diff * vars.exterior_area * U_factor;
     
-    if (include_outflow)
-        res = in - out;
-    else
-        res = in;
-    end
+    res = in - out;
     
 end

@@ -39,7 +39,7 @@ C_air = 1005; %specific heat air (J/kg*K)
 C_w = 1600; % wood (J/kg*K)
 
 % Masses
-m_int = 400; % mass of interior (kg)
+m_int = 8000; % mass of interior (kg)
 m_walls_ext = 700;  % mass of exterior walls (kg)
 
 % Initial values
