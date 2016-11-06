@@ -35,11 +35,11 @@ d_wood = 0.0254; %thickness (m) of single layer of hardwood walls in meters (1 i
 %       cond int & ext walls | insulation | convection at int & ext walls
 R_walls_roof = 2*d_wood/k_wood + r_insul + 1/h_c_int_air + 1/h_c_outside_air;
 % Specific heats
-C_air = 1005; %specific heat air (J/kg*K)
+C_air = 4180; %specific heat liquid water (J/kg*K)
 C_w = 1600; % wood (J/kg*K)
 
 % Masses
-m_int = 8000; % mass of interior (kg)
+m_int = 16000; % mass of interior (kg)
 m_walls_ext = 700;  % mass of exterior walls (kg)
 
 % Initial values

@@ -7,19 +7,19 @@
     % elapsed since the beginning of that day
     [Months, Days, HalfHours, Solar_direct, Solar_diffuse, ...
         Outside_temp] = import_data(2015);
-    
+    figure(1);
+    clf
+    sun_tube_areas = 5;
+    subplot(2,1,1);
+    hold on
+    labels = cell(size(sun_tube_areas));
+    for i = 1:length(sun_tube_areas)
     % Create variables object with model constants and simulation
     % parameters
     vars = modelvariables(HalfHours, Solar_direct, Solar_diffuse, Outside_temp);
 
-    clf
-    sun_tube_areas = [2];
-    subplot(2,1,1);
-    hold on
-    labels = cell(size(sun_tube_areas));
     
     U_init = [vars.U_int_init vars.U_ext_wall_init];
-    for i = 1:length(sun_tube_areas)
         s_a = sun_tube_areas(i);
         vars.sun_tube_area = s_a;
         timeSpan = [startDay endDay]*24;
@@ -38,7 +38,7 @@
 %         minT = min(T_int);
 %         plot([Times(1) Times(end)], [maxT maxT], 'r--');
 %         plot([Times(1) Times(end)], [minT minT], 'b--');
-        csvwrite(strcat('calced-data-3\sola-',num2str(s_a),'m2.csv'), [Times'; U']);
+        csvwrite(strcat('calced-santa-rosa\sola-',num2str(s_a),'m2.csv'), [Times'; T_int']);
     end
     indexSpan = (startDay-1)*48+1:endDay*48;
     daySpan = indexSpan/48;
@@ -46,7 +46,7 @@
     % Calculate temperatures and convert to F
     %T_ext_wall = calc_temp_from_u(m_walls_ext, C_w, U_walls_ext)*(9/5)-459.67;
     % Plot temperatures over time
-    %figure(1);
+%     figure(1);
     %times = (1:pointsToCalc)/48;
     plot(daySpan, vars.outside_temps(indexSpan)*(9/5)-459.67, 'k--');
     %plot(times, T_ext_wall);

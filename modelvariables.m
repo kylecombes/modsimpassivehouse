@@ -2,8 +2,8 @@ classdef modelvariables
 % Shared constants for passive house system and surroundings
     properties
         % House dimensions
-        house_length = 6;   % Length of outside (m)
-        house_width = 2.6;  % Width of house (m)
+        house_length = 7;   % Length of outside (m)
+        house_width = 7;  % Width of house (m)
         house_height = 4;   % Height of house (m)
         wall_height;
         effective_wall_area;
@@ -27,7 +27,7 @@ classdef modelvariables
         k_insul = 0.16; % thermal conductivity of insulation (W/m*K)
         h_c_int_air = 10; % convection coefficient of interior air (W/m^2*K)
         h_c_outside_air = 150; % convection coefficient of outside air (W/m^2*K)
-        r_insul = 42; % R-value of 24" of insulation (m^2*K/W)
+        r_insul = 27.9; % R-value of 24" of insulation (m^2*K/W)
         u_sun_tube = 0.82; % U-value of Solatube 160 DSe (W/m^2*K)
         d_wood = 0.0254; %thickness (m) of single layer of hardwood walls in meters (1 inch)
         d_insul = 0.61; % depth of insulation (m)
@@ -35,12 +35,12 @@ classdef modelvariables
         R_walls_roof;
         density_air = 1.225; % density of air (kg/m^3)
         % Specific heats
-        C_air = 1005; %specific heat air (J/kg*K)
+        C_air = 4180; %specific heat liquid water (J/kg*K)
         C_w = 1600; % wood (J/kg*K)
 
         % Masses
         m_int = 8000; % mass of interior (kg)
-        m_walls_ext = 700;  % mass of exterior walls (kg)
+        m_walls_ext = 2000;  % mass of exterior walls (kg)
 
         % Initial values
         U_int_init; %initial internal energy

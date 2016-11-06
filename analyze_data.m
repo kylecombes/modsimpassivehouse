@@ -1,15 +1,17 @@
 % function res = analyze_data()
 
     variables;
-    solar_tube_areas = 1:20;
+    solar_tube_areas = 1:30;
     
     %Map = zeros(length(solar_tube_areas),12);
     max_temp_dev = zeros(1,length(solar_tube_areas));
-    figure(1);
+%     figure(1);
     for A = solar_tube_areas
         %figure(A);
-        [Times, U_int] = import_me_data(A);
-        T_int = calc_temp_from_u(m_int, C_air, U_int)*(9/5)-459.67;
+        [Times, T_int] = import_me_data(A);
+        if (T_int(4) > 150) % Storing internal energy, not temp -- convert
+            T_int = calc_temp_from_u(m_int, C_air, T_int)*(9/5)-459.67;
+        end
         Times = Times/52;
         %plot(Times, T_int);
         labels{A} = strcat('Interior: ',num2str(A),'m^2');
@@ -56,7 +58,7 @@
 %     %%
 
     %% Punchline graph of tube area vs max temp deviation
-    figure(A+1);
+    figure(2);
     plot(solar_tube_areas, max_temp_dev(solar_tube_areas));
     xlabel('Solatube® Area');
     ylabel('Maximum Deviation (°F)');
